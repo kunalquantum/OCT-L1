@@ -5,10 +5,10 @@ import styles from './AgentCard.module.css'
 const RANK = { PROCEED: 0, CAUTION: 1, DELAY: 2, BLOCK: 3 }
 
 function alignInfo(agentStance, consensusStance) {
-  if (agentStance === consensusStance) return ['aligned', 'Aligned']
+  if (agentStance === consensusStance) return ['aligned', '✓ Adopted into consensus']
   return Math.abs(RANK[agentStance] - RANK[consensusStance]) >= 2
-    ? ['dissenting', 'Dissenting']
-    : ['divergent', 'Divergent']
+    ? ['dissenting', '✕ Overruled by majority']
+    : ['divergent', '~ Noted — partial agreement']
 }
 
 const CIRC = 125.6
@@ -62,16 +62,23 @@ export default function AgentCard({ verdict, index, consensusStance }) {
         </div>
       </div>
 
+      {/* contribution banner */}
+      <div className={`${styles.banner} ${styles[alignClass]}`}>{alignLabel}</div>
+
       <p className={styles.summary}>{verdict.summary}</p>
 
       {verdict.findings.length > 0 && (
-        <ul className={styles.findings}>
-          {verdict.findings.map((f, i) => <li key={i}>{f}</li>)}
-        </ul>
+        <div className={styles.findingsWrap}>
+          <span className={styles.findingsHead}>What this agent found</span>
+          <ul className={styles.findings}>
+            {verdict.findings.map((f, i) => <li key={i}>{f}</li>)}
+          </ul>
+        </div>
       )}
 
       {verdict.blockers.length > 0 && (
         <div className={styles.blockers}>
+          <span className={styles.blkHead}>Raised as blockers</span>
           {verdict.blockers.map((b, i) => (
             <div key={i} className={styles.blocker}>{b}</div>
           ))}
