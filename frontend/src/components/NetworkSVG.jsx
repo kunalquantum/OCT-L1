@@ -24,7 +24,7 @@ function bezier(x1, y1, x2, y2) {
   return `M${x1},${y1} C${cx1},${cy1} ${cx2},${cy2} ${x2},${y2}`
 }
 
-export default function NetworkSVG({ verdicts, consensusStance }) {
+export default function NetworkSVG({ verdicts, consensusStance, activeAgents }) {
   const svgRef = useRef(null)
 
   useEffect(() => {
@@ -34,6 +34,8 @@ export default function NetworkSVG({ verdicts, consensusStance }) {
     return () => cancelAnimationFrame(id)
   }, [verdicts])
 
+  // activeAgents: Set of agent names that have reported (for streaming mode)
+  const streamMode = activeAgents !== undefined
   const cCol = STANCE_COLOR[consensusStance] || '#7a92b4'
 
   return (
@@ -108,39 +110,38 @@ export default function NetworkSVG({ verdicts, consensusStance }) {
       {verdicts.map((v, i) => {
         const pos = AGENT_POS[i]
         if (!pos) return null
-        const col = STANCE_COLOR[v.stance] || '#7a92b4'
+        const isActive = !streamMode || (activeAgents && activeAgents.has(v.agent_name))
+        const col = isActive ? (STANCE_COLOR[v.stance] || '#7a92b4') : '#2a3a52'
         const short = v.agent_name.replace(' Agent', '').replace(' Expert', '')
-        // pick the first meaningful finding as a one-line label
         const finding = v.findings[0] || v.summary
         const findingShort = finding.length > 32 ? finding.slice(0, 32) + '…' : finding
-        // label sits right or left depending on column
         const isLeft = pos.x < 300
         const labelX = isLeft ? pos.x - AR - 8 : pos.x + AR + 8
         const anchor  = isLeft ? 'end' : 'start'
         return (
-          <g key={i}>
+          <g key={i} style={{ transition: 'opacity .5s', opacity: isActive ? 1 : 0.35 }}>
             <circle cx={pos.x} cy={pos.y} r={AR + 7} fill={col} opacity=".07"
               filter={`url(#ga-${v.stance})`} />
             <circle cx={pos.x} cy={pos.y} r={AR} fill="rgba(8,15,34,.88)"
               stroke={col} strokeWidth="1.5" opacity=".9" />
-            <circle cx={pos.x} cy={pos.y} r="5" fill={col} opacity=".85" />
-            {/* agent name above */}
+            {isActive && <circle cx={pos.x} cy={pos.y} r="5" fill={col} opacity=".85" />}
+            {!isActive && <circle cx={pos.x} cy={pos.y} r="5" fill="#2a3a52" opacity=".6" />}
             <text x={pos.x} y={pos.y - AR - 7} textAnchor="middle"
               fill={col} fontSize="10.5" fontFamily="Inter,system-ui,sans-serif"
               fontWeight="700" opacity=".9">
               {short}
             </text>
-            {/* stance label */}
             <text x={pos.x} y={pos.y - AR - 19} textAnchor="middle"
               fill={col} fontSize="8" fontFamily="Inter,system-ui,sans-serif"
               fontWeight="800" opacity=".6" letterSpacing="1">
-              {v.stance}
+              {isActive ? v.stance : '···'}
             </text>
-            {/* key finding beside node */}
-            <text x={labelX} y={pos.y + 4} textAnchor={anchor}
-              fill="rgba(180,200,220,.55)" fontSize="9" fontFamily="Inter,system-ui,sans-serif">
-              {findingShort}
-            </text>
+            {isActive && (
+              <text x={labelX} y={pos.y + 4} textAnchor={anchor}
+                fill="rgba(180,200,220,.55)" fontSize="9" fontFamily="Inter,system-ui,sans-serif">
+                {findingShort}
+              </text>
+            )}
           </g>
         )
       })}
