@@ -1,0 +1,111 @@
+.box {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.5);
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.field label {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+}
+
+textarea {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: .93rem;
+  line-height: 1.6;
+  padding: 13px 16px;
+  resize: vertical;
+  min-height: 96px;
+  width: 100%;
+  transition: border-color .25s;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: rgba(56,189,248,.5);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 150px;
+}
+
+select {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: .88rem;
+  padding: 11px 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+select:focus { outline: none; border-color: rgba(56,189,248,.4); }
+
+.btn {
+  background: linear-gradient(135deg, #0ea5e9, #818cf8);
+  border-radius: 10px;
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 13px;
+  transition: opacity .2s, transform .2s;
+  width: 100%;
+}
+
+.btn:hover:not(:disabled) { opacity: .82; transform: translateY(-1px); }
+.btn:disabled { opacity: .3; cursor: not-allowed; transform: none; }
+
+.chips {
+  margin-top: 13px;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.chips span { font-size: .72rem; color: var(--muted); }
+
+.chip {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--acc);
+  font-size: .72rem;
+  padding: 4px 11px;
+  transition: background .2s, border-color .2s;
+}
+
+.chip:hover { background: rgba(56,189,248,.1); border-color: rgba(56,189,248,.4); }
+
+@media (max-width: 640px) {
+  .row { flex-direction: column; }
+  .side { min-width: unset; flex-direction: row; flex-wrap: wrap; }
+  .side select, .btn { flex: 1; }
+}

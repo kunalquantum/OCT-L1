@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 36px 0 30px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  background: linear-gradient(140deg, #0ea5e9 0%, #818cf8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 32px rgba(56,189,248,.3), 0 0 64px rgba(56,189,248,.1);
+}
+
+.logo svg { width: 28px; height: 28px; }
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -.6px;
+  background: linear-gradient(95deg, #e8f2ff 0%, #38bdf8 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: 5px;
+  line-height: 1.55;
+  max-width: 580px;
+}
+
+.tagline em {
+  color: #6ba3bf;
+  font-style: normal;
+  font-weight: 600;
+}
