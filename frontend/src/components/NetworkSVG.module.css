@@ -1,0 +1,17 @@
+.svg {
+  display: block;
+  min-width: 520px;
+  width: 100%;
+}
+
+.npath {
+  fill: none;
+  stroke-width: 1.8;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  transition: stroke-dashoffset 1s cubic-bezier(.4,0,.2,1);
+}
+
+.lit {
+  stroke-dashoffset: 0;
+}

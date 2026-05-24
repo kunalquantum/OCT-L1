@@ -1,0 +1,56 @@
+.page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px 120px;
+}
+
+.error {
+  background: rgba(239,68,68,.07);
+  border: 1px solid rgba(239,68,68,.2);
+  border-radius: 10px;
+  color: #fca5a5;
+  font-size: .85rem;
+  padding: 13px 18px;
+  margin-bottom: 20px;
+}
+
+.secHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  margin-top: 32px;
+}
+.secHead span {
+  font-size: .68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+}
+.secHead::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.netPanel {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px 20px 20px;
+  box-shadow: 0 8px 48px rgba(0,0,0,.55);
+}
+
+.svgScroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.svgScroll::-webkit-scrollbar { display: none; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
