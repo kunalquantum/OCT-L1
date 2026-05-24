@@ -110,6 +110,13 @@ export default function NetworkSVG({ verdicts, consensusStance }) {
         if (!pos) return null
         const col = STANCE_COLOR[v.stance] || '#7a92b4'
         const short = v.agent_name.replace(' Agent', '').replace(' Expert', '')
+        // pick the first meaningful finding as a one-line label
+        const finding = v.findings[0] || v.summary
+        const findingShort = finding.length > 32 ? finding.slice(0, 32) + '…' : finding
+        // label sits right or left depending on column
+        const isLeft = pos.x < 300
+        const labelX = isLeft ? pos.x - AR - 8 : pos.x + AR + 8
+        const anchor  = isLeft ? 'end' : 'start'
         return (
           <g key={i}>
             <circle cx={pos.x} cy={pos.y} r={AR + 7} fill={col} opacity=".07"
@@ -117,10 +124,22 @@ export default function NetworkSVG({ verdicts, consensusStance }) {
             <circle cx={pos.x} cy={pos.y} r={AR} fill="rgba(8,15,34,.88)"
               stroke={col} strokeWidth="1.5" opacity=".9" />
             <circle cx={pos.x} cy={pos.y} r="5" fill={col} opacity=".85" />
+            {/* agent name above */}
             <text x={pos.x} y={pos.y - AR - 7} textAnchor="middle"
               fill={col} fontSize="10.5" fontFamily="Inter,system-ui,sans-serif"
-              fontWeight="700" opacity=".85">
+              fontWeight="700" opacity=".9">
               {short}
+            </text>
+            {/* stance label */}
+            <text x={pos.x} y={pos.y - AR - 19} textAnchor="middle"
+              fill={col} fontSize="8" fontFamily="Inter,system-ui,sans-serif"
+              fontWeight="800" opacity=".6" letterSpacing="1">
+              {v.stance}
+            </text>
+            {/* key finding beside node */}
+            <text x={labelX} y={pos.y + 4} textAnchor={anchor}
+              fill="rgba(180,200,220,.55)" fontSize="9" fontFamily="Inter,system-ui,sans-serif">
+              {findingShort}
             </text>
           </g>
         )

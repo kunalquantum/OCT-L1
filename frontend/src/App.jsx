@@ -4,6 +4,7 @@ import QueryPanel from './components/QueryPanel'
 import Loader from './components/Loader'
 import NetworkSVG from './components/NetworkSVG'
 import DistributionStrip from './components/DistributionStrip'
+import DeliberationSummary from './components/DeliberationSummary'
 import AgentCard from './components/AgentCard'
 import DecisionPanel from './components/DecisionPanel'
 import styles from './App.module.css'
@@ -14,12 +15,14 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState(null)
+  const [submittedQuery, setSubmittedQuery] = useState('')
 
   async function handleSubmit() {
     if (!query.trim()) return
     setLoading(true)
     setError('')
     setResult(null)
+    setSubmittedQuery(query.trim())
     try {
       const res = await fetch('/api/reason', {
         method: 'POST',
@@ -70,6 +73,13 @@ export default function App() {
               reliability={result.reliability_score}
             />
           </div>
+
+          <div className={styles.secHead}><span>What Was Deliberated</span></div>
+          <DeliberationSummary
+            verdicts={result.verdicts}
+            consensus={result.consensus}
+            queryText={submittedQuery}
+          />
 
           <div className={styles.secHead}><span>Agent Deliberation</span></div>
           <div className={styles.grid}>

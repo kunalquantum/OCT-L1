@@ -88,7 +88,38 @@
 .gPct { font-size: .7rem; font-weight: 800; color: var(--text); line-height: 1; }
 .gSub { font-size: .52rem; color: var(--muted); line-height: 1; }
 
-.summary { font-size: .8rem; color: var(--muted); line-height: 1.55; margin-bottom: 9px; }
+/* contribution banner */
+.banner {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.banner.aligned    { background: rgba(16,185,129,.1);  color: #34d399; border: 1px solid rgba(16,185,129,.2); }
+.banner.dissenting { background: rgba(239,68,68,.08);  color: #f87171; border: 1px solid rgba(239,68,68,.2); }
+.banner.divergent  { background: rgba(245,158,11,.08); color: #fbbf24; border: 1px solid rgba(245,158,11,.18); }
+
+.summary {
+  font-size: .85rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 11px;
+  opacity: .85;
+}
+
+.findingsWrap { margin-bottom: 9px; }
+.findingsHead {
+  display: block;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
 
 .findings { list-style: none; display: flex; flex-direction: column; gap: 3px; }
 .findings li {
@@ -101,6 +132,15 @@
 .findings li::before { content: '·'; color: var(--muted); flex-shrink: 0; }
 
 .blockers { margin-top: 8px; }
+.blkHead {
+  display: block;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: #f87171;
+  margin-bottom: 5px;
+}
 .blocker {
   display: flex;
   gap: 6px;
